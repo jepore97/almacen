@@ -54,7 +54,7 @@ public class JPanelFirma extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        setForeground(new java.awt.Color(255, 255, 255));
+        setForeground(new java.awt.Color(51, 51, 51));
         setPreferredSize(new java.awt.Dimension(315, 80));
         setVerifyInputWhenFocusTarget(false);
 
