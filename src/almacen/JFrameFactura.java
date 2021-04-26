@@ -26,25 +26,23 @@ import javax.swing.table.TableColumn;
 public class JFrameFactura extends javax.swing.JFrame {
 
     TableCellRendererColor tbc = new TableCellRendererColor();
-    int LayoutX,LayoutY;
+    int LayoutX, LayoutY;
     Item item;
     DefaultTableModel modelo;
-    ArrayList<Item> items=new ArrayList<Item>();
-    
+    ArrayList<Item> items = new ArrayList<Item>();
 
     /**
      * Creates new form JFrameFactura
      */
     public JFrameFactura() {
-        
+
         initComponents();
-        modelo=(DefaultTableModel) Tabla.getModel();
+        modelo = (DefaultTableModel) Tabla.getModel();
         pintarTabla();
-        this.getPreferredSize();
     }
 
     public void pintarTabla() {
-        
+
         //Encabezado
         JTableHeader th;
         th = Tabla.getTableHeader();
@@ -52,7 +50,7 @@ public class JFrameFactura extends javax.swing.JFrame {
         th.setBackground(Color.darkGray);
         th.setForeground(Color.white);
         th.setFont(fuente);
-        
+
         //color celdas
         for (int i = 0; i < Tabla.getColumnCount(); i++) {
             Tabla.getColumnModel().getColumn(i).setCellRenderer(tbc);
@@ -77,13 +75,13 @@ public class JFrameFactura extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        textPrecio = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        textProducto = new javax.swing.JFormattedTextField();
-        textCantidad1 = new javax.swing.JTextField();
+        textProducto = new javax.swing.JTextField();
+        textCantidad = new javax.swing.JTextField();
+        textPrecio = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -109,7 +107,6 @@ public class JFrameFactura extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 51, 0));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -190,11 +187,6 @@ public class JFrameFactura extends javax.swing.JFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        textPrecio.setToolTipText("Ingresa Cantidad");
-        textPrecio.setFocusTraversalPolicyProvider(true);
-        textPrecio.setInheritsPopupMenu(true);
-        jPanel7.add(textPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 190, 30));
-
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1486485588-add-create-new-math-sign-cross-plus_81186.png"))); // NOI18N
         jButton3.setBorder(null);
         jButton3.setFocusPainted(false);
@@ -212,6 +204,14 @@ public class JFrameFactura extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
+        jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton3KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jButton3KeyReleased(evt);
+            }
+        });
         jPanel7.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 10, 126, 40));
 
         jLabel13.setForeground(new java.awt.Color(153, 153, 153));
@@ -225,19 +225,24 @@ public class JFrameFactura extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(153, 153, 153));
         jLabel15.setText("Producto");
         jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, -1));
+        jPanel7.add(textProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 250, 30));
 
-        textProducto.setValue(textProducto.getValue());
-        textProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textProductoActionPerformed(evt);
+        textCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textCantidadKeyTyped(evt);
             }
         });
-        jPanel7.add(textProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 270, 30));
+        jPanel7.add(textCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 200, 30));
 
-        textCantidad1.setToolTipText("Ingresa Cantidad");
-        textCantidad1.setFocusTraversalPolicyProvider(true);
-        textCantidad1.setInheritsPopupMenu(true);
-        jPanel7.add(textCantidad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 210, 30));
+        textPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textPrecioKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textPrecioKeyTyped(evt);
+            }
+        });
+        jPanel7.add(textPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 180, 30));
 
         panelTablas.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 990, 60));
 
@@ -314,7 +319,7 @@ public class JFrameFactura extends javax.swing.JFrame {
 
         panelTablas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1180, 360));
 
-        getContentPane().add(panelTablas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 254, 1240, 700));
+        getContentPane().add(panelTablas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 254, 1240, 660));
 
         panelTitulos.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -348,7 +353,7 @@ public class JFrameFactura extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
-                .addContainerGap(236, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,7 +436,7 @@ public class JFrameFactura extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelTitulosLayout = new javax.swing.GroupLayout(panelTitulos);
@@ -441,7 +446,7 @@ public class JFrameFactura extends javax.swing.JFrame {
             .addGroup(panelTitulosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -454,11 +459,13 @@ public class JFrameFactura extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(panelTitulosLayout.createSequentialGroup()
                 .addGroup(panelTitulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelTitulosLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelTitulosLayout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         getContentPane().add(panelTitulos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1240, 200));
@@ -484,44 +491,44 @@ public class JFrameFactura extends javax.swing.JFrame {
 
     private void btnMinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinMouseClicked
         // TODO add your handling code here:
-        if (evt.getButton()==java.awt.event.MouseEvent.BUTTON1) {
+        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
             this.setExtendedState(ICONIFIED);
         }
     }//GEN-LAST:event_btnMinMouseClicked
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         // TODO add your handling code here:
-        if (evt.getButton()==java.awt.event.MouseEvent.BUTTON1) {
+        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
             System.exit(0);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel5MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseDragged
         // TODO add your handling code here:
-        this.setLocation(evt.getXOnScreen()-LayoutX,evt.getYOnScreen()-LayoutY);
+        this.setLocation(evt.getXOnScreen() - LayoutX, evt.getYOnScreen() - LayoutY);
     }//GEN-LAST:event_jPanel5MouseDragged
 
     private void btnResMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResMouseClicked
         // TODO add your handling code here:
-        if (evt.getButton()==java.awt.event.MouseEvent.BUTTON1) {
-             if(getExtendedState() == this.MAXIMIZED_BOTH){//1
-            setExtendedState(this.NORMAL);//2
-        }else{
-            setExtendedState(this.MAXIMIZED_BOTH);//3
-        }
+        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+            if (getExtendedState() == this.MAXIMIZED_BOTH) {//1
+                setExtendedState(this.NORMAL);//2
+            } else {
+                setExtendedState(this.MAXIMIZED_BOTH);//3
+            }
         }
     }//GEN-LAST:event_btnResMouseClicked
 
     private void jPanel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MousePressed
         // TODO add your handling code here:
-        if (evt.getButton()==java.awt.event.MouseEvent.BUTTON1) {
-            LayoutX=evt.getX();
-            LayoutY=evt.getY();
+        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+            LayoutX = evt.getX();
+            LayoutY = evt.getY();
         }
     }//GEN-LAST:event_jPanel5MousePressed
 
@@ -531,30 +538,71 @@ public class JFrameFactura extends javax.swing.JFrame {
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
-        
-    
+
+
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
-            
-        item=new Item(textProducto.getText(),Integer.parseInt(textPrecio.getText()),Integer.parseInt(textPrecio.getText()));
-        items.add(item);
-        modelo.addRow(new Object[]{item.getProducto(),item.getCantidad(),item.getPrecio(),item.getPrecio()*item.getCantidad()});
-       textProducto.setText("");
-       textPrecio.setText("");
-       textPrecio.setText("");
+
+            item = new Item(textProducto.getText(), Integer.parseInt(textCantidad.getText()), Integer.parseInt(textPrecio.getText()));
+            items.add(item);
+            modelo.addRow(new Object[]{item.getProducto(), item.getCantidad(), item.getPrecio(), item.getPrecio() * item.getCantidad()});
+            textProducto.setText("");
+            textPrecio.setText("");
+            textCantidad.setText("");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Hello World");
-            System.err.println("eror"+e);
+            JOptionPane.showMessageDialog(this, "Error"+e);
         }
-       
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void textProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textProductoActionPerformed
+    private void textCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textCantidadKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_textProductoActionPerformed
+        char validar=evt.getKeyChar();
+        if(!Character.isDigit(validar)){
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_textCantidadKeyTyped
+
+    private void textPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPrecioKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+        if(!Character.isDigit(validar)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_textPrecioKeyTyped
+
+    private void jButton3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton3KeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton3KeyPressed
+
+    private void jButton3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton3KeyReleased
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton3KeyReleased
+
+    private void textPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPrecioKeyReleased
+        // TODO add your handling code here:
+        if (evt.VK_ENTER==evt.getKeyCode()) {
+            JOptionPane.showMessageDialog(this, "enter");
+            try {
+
+            item = new Item(textProducto.getText(), Integer.parseInt(textCantidad.getText()), Integer.parseInt(textPrecio.getText()));
+            items.add(item);
+            modelo.addRow(new Object[]{item.getProducto(), item.getCantidad(), item.getPrecio(), item.getPrecio() * item.getCantidad()});
+            textProducto.setText("");
+            textPrecio.setText("");
+            textCantidad.setText("");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error"+e);
+        }
+            
+        }
+    }//GEN-LAST:event_textPrecioKeyReleased
 
     /**
      * @param args the command line arguments
@@ -586,9 +634,6 @@ public class JFrameFactura extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JFrameFactura  frm= new JFrameFactura();
-                frm.setLocationRelativeTo(frm);
-               frm.setVisible(true);
             }
         });
     }
@@ -630,10 +675,9 @@ public class JFrameFactura extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JPanel panelTablas;
     private javax.swing.JPanel panelTitulos;
-    private javax.swing.JTextField textCantidad1;
+    private javax.swing.JTextField textCantidad;
     private javax.swing.JTextField textPrecio;
-    private javax.swing.JFormattedTextField textProducto;
+    private javax.swing.JTextField textProducto;
     // End of variables declaration//GEN-END:variables
 
-    
 }
