@@ -1,23 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelos;
 
-/**
- *
- * @author H-P
- */
 public class Factura {
+    
     private int cdgoFactura;
     private int total;
     private Usuario usuario;
+    private Detalle detalle[];
 
-    public Factura(int cdgoFactura, int total, Usuario usuario) {
+    public Factura() {
+    }
+
+    public Factura(int cdgoFactura) {
+        this.cdgoFactura = cdgoFactura;
+    }
+
+    public Factura(int cdgoFactura, int total, Usuario usuario, Detalle[] detalle) {
         this.cdgoFactura = cdgoFactura;
         this.total = total;
         this.usuario = usuario;
+        this.detalle = detalle;
     }
 
     public int getCdgoFactura() {
@@ -43,5 +44,12 @@ public class Factura {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
+    public Detalle[] getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(Detalle[] detalle) {
+        this.detalle = detalle;
+    }
 }

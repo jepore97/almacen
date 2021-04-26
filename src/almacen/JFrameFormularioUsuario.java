@@ -1,7 +1,6 @@
 package almacen;
 
 import java.awt.GridBagConstraints;
-import javax.swing.ImageIcon;
 
 public class JFrameFormularioUsuario extends javax.swing.JFrame {
     
@@ -50,6 +49,8 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
         jLabelHuella2 = new javax.swing.JLabel();
         jLabelHuella3 = new javax.swing.JLabel();
         jButtonGuardar = new javax.swing.JButton();
+
+        setResizable(false);
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -253,13 +254,11 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

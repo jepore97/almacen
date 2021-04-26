@@ -1,41 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package almacen;
 
-import Modelos.Item;
+import Modelos.Detalle;
+import Modelos.Factura;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 
-/**
- *
- * @author H-P
- */
 public class JFrameFactura extends javax.swing.JFrame {
 
     TableCellRendererColor tbc = new TableCellRendererColor();
     int LayoutX, LayoutY;
-    Item item;
+    Detalle item;
     DefaultTableModel modelo;
-    ArrayList<Item> items = new ArrayList<Item>();
+    ArrayList<Detalle> items = new ArrayList<Detalle>();
 
-    /**
-     * Creates new form JFrameFactura
-     */
     public JFrameFactura() {
-
         initComponents();
         modelo = (DefaultTableModel) Tabla.getModel();
         pintarTabla();
@@ -461,7 +443,7 @@ public class JFrameFactura extends javax.swing.JFrame {
                 .addGroup(panelTitulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTitulosLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 82, Short.MAX_VALUE))
                     .addGroup(panelTitulosLayout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -546,7 +528,7 @@ public class JFrameFactura extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
 
-            item = new Item(textProducto.getText(), Integer.parseInt(textCantidad.getText()), Integer.parseInt(textPrecio.getText()));
+            item = new Detalle(4, textProducto.getText(), Integer.parseInt(textCantidad.getText()), Integer.parseInt(textPrecio.getText()), new Factura(2));
             items.add(item);
             modelo.addRow(new Object[]{item.getProducto(), item.getCantidad(), item.getPrecio(), item.getPrecio() * item.getCantidad()});
             textProducto.setText("");
@@ -591,7 +573,7 @@ public class JFrameFactura extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "enter");
             try {
 
-            item = new Item(textProducto.getText(), Integer.parseInt(textCantidad.getText()), Integer.parseInt(textPrecio.getText()));
+            item = new Detalle(3,textProducto.getText(), Integer.parseInt(textCantidad.getText()), Integer.parseInt(textPrecio.getText()), new Factura(2));
             items.add(item);
             modelo.addRow(new Object[]{item.getProducto(), item.getCantidad(), item.getPrecio(), item.getPrecio() * item.getCantidad()});
             textProducto.setText("");
