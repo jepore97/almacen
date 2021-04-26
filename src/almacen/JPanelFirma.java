@@ -17,6 +17,10 @@ public class JPanelFirma extends javax.swing.JPanel {
         initComponents();
         init();
     }
+
+    public BufferedImage getImage() {
+        return image;
+    }
     
     private void init() {
         image = new BufferedImage(315, 80, BufferedImage.TRANSLUCENT);
