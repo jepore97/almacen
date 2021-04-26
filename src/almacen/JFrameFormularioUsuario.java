@@ -1,6 +1,7 @@
 package almacen;
 
 import java.awt.GridBagConstraints;
+import javax.swing.ImageIcon;
 
 public class JFrameFormularioUsuario extends javax.swing.JFrame {
     
@@ -43,6 +44,12 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
         jLabelGrado = new javax.swing.JLabel();
         jTextFieldGrado = new javax.swing.JTextField();
         jLabelFirma = new javax.swing.JLabel();
+        jLabelHuellas = new javax.swing.JLabel();
+        jPanelHuellas = new javax.swing.JPanel();
+        jLabelHuella1 = new javax.swing.JLabel();
+        jLabelHuella2 = new javax.swing.JLabel();
+        jLabelHuella3 = new javax.swing.JLabel();
+        jButtonGuardar = new javax.swing.JButton();
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -63,7 +70,7 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
         jPanel1.add(jLabelRequerido, gridBagConstraints);
 
         jPanelFormulario.setOpaque(false);
-        jPanelFormulario.setPreferredSize(new java.awt.Dimension(315, 300));
+        jPanelFormulario.setPreferredSize(new java.awt.Dimension(315, 450));
         jPanelFormulario.setRequestFocusEnabled(false);
         jPanelFormulario.setLayout(new java.awt.GridBagLayout());
 
@@ -182,10 +189,65 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         jPanelFormulario.add(jLabelFirma, gridBagConstraints);
 
+        jLabelHuellas.setText("HUELLAS");
+        jLabelHuellas.setOpaque(true);
+        jLabelHuellas.setPreferredSize(new java.awt.Dimension(85, 14));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
+        jPanelFormulario.add(jLabelHuellas, gridBagConstraints);
+
+        jPanelHuellas.setPreferredSize(new java.awt.Dimension(315, 100));
+        jPanelHuellas.setLayout(new java.awt.GridBagLayout());
+
+        jLabelHuella1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelHuella1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabelHuella1.setPreferredSize(new java.awt.Dimension(100, 100));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanelHuellas.add(jLabelHuella1, gridBagConstraints);
+
+        jLabelHuella2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelHuella2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabelHuella2.setPreferredSize(new java.awt.Dimension(100, 100));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 7, 0, 7);
+        jPanelHuellas.add(jLabelHuella2, gridBagConstraints);
+
+        jLabelHuella3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelHuella3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabelHuella3.setPreferredSize(new java.awt.Dimension(100, 100));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        jPanelHuellas.add(jLabelHuella3, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 2;
+        jPanelFormulario.add(jPanelHuellas, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         jPanel1.add(jPanelFormulario, gridBagConstraints);
+
+        jButtonGuardar.setText("GUARDAR");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        jPanel1.add(jButtonGuardar, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,13 +259,15 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,17 +305,23 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JLabel jLabelApellidos;
     private javax.swing.JLabel jLabelCargo;
     private javax.swing.JLabel jLabelCedula;
     private javax.swing.JLabel jLabelCorreo;
     private javax.swing.JLabel jLabelFirma;
     private javax.swing.JLabel jLabelGrado;
+    private javax.swing.JLabel jLabelHuella1;
+    private javax.swing.JLabel jLabelHuella2;
+    private javax.swing.JLabel jLabelHuella3;
+    private javax.swing.JLabel jLabelHuellas;
     private javax.swing.JLabel jLabelNombres;
     private javax.swing.JLabel jLabelRequerido;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelFormulario;
+    private javax.swing.JPanel jPanelHuellas;
     private javax.swing.JTextField jTextFieldApellidos;
     private javax.swing.JTextField jTextFieldCargo;
     private javax.swing.JTextField jTextFieldCedula;
