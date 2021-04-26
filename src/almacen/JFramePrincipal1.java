@@ -3,7 +3,7 @@ package almacen;
 public class JFramePrincipal1 extends javax.swing.JFrame {
 
     JPanelUsuarios jPanelUsuarios;
-    
+    jPanelFactura jPanelFactura;
     public JFramePrincipal1() {
         initComponents();
         init();
@@ -11,6 +11,7 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     
     private void init(){
         jPanelUsuarios = new JPanelUsuarios();
+        jPanelFactura=new jPanelFactura();
         //jPanelUsuarios.setVisible(false);
         setLocationRelativeTo(null);
         addComponentsToContentPane();
@@ -18,6 +19,9 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     
     private void addComponentsToContentPane() {
         jPanel.add(jPanelUsuarios);
+        jPanel.add(jPanelFactura);
+        jPanelFactura.setVisible(false);
+        
     }
 
     /**
@@ -36,6 +40,7 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ALMACÉN");
+        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelMenu.setBackground(new java.awt.Color(255, 255, 255));
@@ -98,10 +103,13 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
 
     private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
         jPanelUsuarios.setVisible(true);
+        jPanelFactura.setVisible(false);
     }//GEN-LAST:event_jButtonUsuariosActionPerformed
 
     private void jButtonFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturaActionPerformed
+       
         jPanelUsuarios.setVisible(false);
+        jPanelFactura.setVisible(true);
     }//GEN-LAST:event_jButtonFacturaActionPerformed
 
     /**
