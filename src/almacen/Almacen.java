@@ -15,8 +15,8 @@ public class Almacen {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        // yuri te amo
+        JFramePrincipal1 jFramePrincipal = new JFramePrincipal1();
+        jFramePrincipal.setVisible(true);
     }
     
 }
