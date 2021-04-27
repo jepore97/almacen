@@ -11,6 +11,13 @@ public class Detalle {
     public Detalle() {
     }
 
+    public Detalle(String producto, int cantidad, int precio) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    
     public Detalle(int cdgoDetalle) {
         this.cdgoDetalle = cdgoDetalle;
     }
