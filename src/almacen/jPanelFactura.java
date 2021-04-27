@@ -32,6 +32,8 @@ public class jPanelFactura extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jTableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -57,9 +59,9 @@ public class jPanelFactura extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTableUsuarios);
 
+        jButton1.setBackground(new java.awt.Color(255, 153, 51));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1486485588-add-create-new-math-sign-cross-plus_81186.png"))); // NOI18N
         jButton1.setText("NUEVA fACTURA");
-        jButton1.setFocusable(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

@@ -1,21 +1,38 @@
 package almacen;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+
 public class JFramePrincipal1 extends javax.swing.JFrame {
 
     JPanelUsuarios jPanelUsuarios;
     jPanelFactura jPanelFactura;
+    barraSuperior barra;
     public JFramePrincipal1() {
         initComponents();
         init();
     }
     
     private void init(){
+                tamañoPantalla();
+
         jPanelUsuarios = new JPanelUsuarios();
         jPanelFactura=new jPanelFactura();
+        barra=new barraSuperior();
         //jPanelUsuarios.setVisible(false);
-        setLocationRelativeTo(null);
         addComponentsToContentPane();
     }
+    
+    private void tamañoPantalla(){
+        Toolkit tk = Toolkit.getDefaultToolkit();
+Dimension d = tk.getScreenSize();
+int ancho = (int)d.getWidth();
+int alto = (int)d.getHeight();
+setSize(ancho=500, alto=900);
+        setLocationRelativeTo(null);
+    }
+    
     
     private void addComponentsToContentPane() {
         jPanel.add(jPanelUsuarios);
@@ -41,7 +58,9 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ALMACÉN");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setResizable(false);
+        setFocusableWindowState(false);
+        setMaximumSize(null);
+        setPreferredSize(null);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelMenu.setBackground(new java.awt.Color(255, 255, 255));
