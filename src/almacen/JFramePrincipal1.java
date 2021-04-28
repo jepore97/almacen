@@ -1,7 +1,10 @@
 package almacen;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JLabel;
 
 
 public class JFramePrincipal1 extends javax.swing.JFrame {
@@ -27,14 +30,17 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     private void tamañoPantalla(){
         Toolkit tk = Toolkit.getDefaultToolkit();
 Dimension d = tk.getScreenSize();
-int ancho = (int)d.getWidth();
-int alto = (int)d.getHeight();
-setSize(ancho=500, alto=900);
+int ancho = (int)(d.getWidth()*0.7);
+int alto = (int)(d.getHeight()*0.7);
+setSize(ancho, alto);
         setLocationRelativeTo(null);
     }
     
     
     private void addComponentsToContentPane() {
+        jPanel.setSize(getSize().width-jPanelMenu.getSize().width,getSize().height);
+        jPanelUsuarios.setSize(jPanel.getSize().width-jPanelMenu.getSize().width,jPanel.getSize().height-30);
+        jPanelFactura.setSize(jPanel.getSize().width-jPanelMenu.getSize().width,jPanel.getSize().height-30);
         jPanel.add(jPanelUsuarios);
         jPanel.add(jPanelFactura);
         jPanelFactura.setVisible(false);
@@ -50,21 +56,38 @@ setSize(ancho=500, alto=900);
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel = new javax.swing.JPanel();
         jPanelMenu = new javax.swing.JPanel();
         jButtonFactura = new javax.swing.JButton();
         jButtonUsuarios = new javax.swing.JButton();
-        jPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ALMACÉN");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setFocusableWindowState(false);
+        setFocusCycleRoot(false);
         setMaximumSize(null);
-        setPreferredSize(null);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
+        jPanel.setLayout(jPanelLayout);
+        jPanelLayout.setHorizontalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1259, Short.MAX_VALUE)
+        );
+        jPanelLayout.setVerticalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 794, Short.MAX_VALUE)
+        );
 
         jPanelMenu.setBackground(new java.awt.Color(255, 255, 255));
         jPanelMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelMenu.setMaximumSize(null);
+        jPanelMenu.setMinimumSize(null);
+        jPanelMenu.setPreferredSize(null);
+        jPanelMenu.setRequestFocusEnabled(false);
+        jPanelMenu.setVerifyInputWhenFocusTarget(false);
+        jPanelMenu.setLayout(new java.awt.GridLayout(6, 1));
 
         jButtonFactura.setBackground(new java.awt.Color(255, 255, 255));
         jButtonFactura.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
@@ -80,6 +103,7 @@ setSize(ancho=500, alto=900);
                 jButtonFacturaActionPerformed(evt);
             }
         });
+        jPanelMenu.add(jButtonFactura);
 
         jButtonUsuarios.setBackground(new java.awt.Color(255, 255, 255));
         jButtonUsuarios.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
@@ -94,41 +118,44 @@ setSize(ancho=500, alto=900);
                 jButtonUsuariosActionPerformed(evt);
             }
         });
+        jPanelMenu.add(jButtonUsuarios);
 
-        javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
-        jPanelMenu.setLayout(jPanelMenuLayout);
-        jPanelMenuLayout.setHorizontalGroup(
-            jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButtonFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jButtonUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanelMenuLayout.setVerticalGroup(
-            jPanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMenuLayout.createSequentialGroup()
-                .addComponent(jButtonFactura)
-                .addGap(6, 6, 6)
-                .addComponent(jButtonUsuarios))
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 9, Short.MAX_VALUE))
+                    .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-
-        getContentPane().add(jPanelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 83, 490));
-
-        java.awt.GridBagLayout jPanelLayout = new java.awt.GridBagLayout();
-        jPanelLayout.columnWidths = new int[] {0};
-        jPanelLayout.rowHeights = new int[] {0};
-        jPanel.setLayout(jPanelLayout);
-        getContentPane().add(jPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 600, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
         jPanelUsuarios.setVisible(true);
+        jButtonUsuarios.setBackground(Color.decode("#3399FF"));
+        jButtonFactura.setBackground(Color.white);
         jPanelFactura.setVisible(false);
     }//GEN-LAST:event_jButtonUsuariosActionPerformed
 
     private void jButtonFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturaActionPerformed
        
         jPanelUsuarios.setVisible(false);
+        jButtonFactura.setBackground(Color.decode("#3399FF"));
+        jButtonUsuarios.setBackground(Color.white);
         jPanelFactura.setVisible(true);
     }//GEN-LAST:event_jButtonFacturaActionPerformed
 

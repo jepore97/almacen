@@ -7,8 +7,10 @@ package almacen;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -34,6 +36,22 @@ private Component componente;
         }
         
         return this;
+    }
+    
+     public void pintarTabla(JTable Tabla ) {
+
+        //Encabezado
+        JTableHeader th;
+        th = Tabla.getTableHeader();
+        Font fuente = new Font("Verdana", Font.ITALIC, 25);
+        th.setBackground(Color.decode("#3399FF"));
+        th.setForeground(Color.white);
+        th.setFont(fuente);
+
+        //color celdas
+        for (int i = 0; i < Tabla.getColumnCount(); i++) {
+            Tabla.getColumnModel().getColumn(i).setCellRenderer(this);
+        }
     }
     
     
