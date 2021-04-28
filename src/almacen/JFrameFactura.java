@@ -552,7 +552,7 @@ public class JFrameFactura extends javax.swing.JFrame {
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         // TODO add your handling code here:
         if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-            System.exit(0);
+            dispose();
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
 

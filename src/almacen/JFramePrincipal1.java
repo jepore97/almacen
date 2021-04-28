@@ -11,7 +11,10 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
 
     JPanelUsuarios jPanelUsuarios;
     jPanelFactura jPanelFactura;
-    barraSuperior barra;
+    int LayoutX=0;
+    
+    int LayoutY=0;
+
     public JFramePrincipal1() {
         initComponents();
         init();
@@ -22,7 +25,6 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
 
         jPanelUsuarios = new JPanelUsuarios();
         jPanelFactura=new jPanelFactura();
-        barra=new barraSuperior();
         //jPanelUsuarios.setVisible(false);
         addComponentsToContentPane();
     }
@@ -30,19 +32,23 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     private void tamañoPantalla(){
         Toolkit tk = Toolkit.getDefaultToolkit();
 Dimension d = tk.getScreenSize();
-int ancho = (int)(d.getWidth()*0.7);
-int alto = (int)(d.getHeight()*0.7);
+int ancho = (int)(d.getWidth()*0.65);
+int alto = (int)(d.getHeight()*0.65);
 setSize(ancho, alto);
         setLocationRelativeTo(null);
     }
     
     
     private void addComponentsToContentPane() {
-        jPanel.setSize(getSize().width-jPanelMenu.getSize().width,getSize().height);
-        jPanelUsuarios.setSize(jPanel.getSize().width-jPanelMenu.getSize().width,jPanel.getSize().height-30);
-        jPanelFactura.setSize(jPanel.getSize().width-jPanelMenu.getSize().width,jPanel.getSize().height-30);
+        jPanelBarra.setSize(getSize().width,50);
+        
+        jPanel.setSize(getSize().width,getSize().height);
+        jPanelUsuarios.setSize(jPanel.getSize().width-jPanelMenu.getSize().width,jPanel.getSize().height);
+        jPanelFactura.setSize(jPanel.getSize().width-jPanelMenu.getSize().width,jPanel.getSize().height);
         jPanel.add(jPanelUsuarios);
         jPanel.add(jPanelFactura);
+        
+        jButtonUsuarios.setBackground(Color.decode("#3399FF"));
         jPanelFactura.setVisible(false);
         
     }
@@ -55,17 +61,25 @@ setSize(ancho, alto);
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel = new javax.swing.JPanel();
         jPanelMenu = new javax.swing.JPanel();
         jButtonFactura = new javax.swing.JButton();
         jButtonUsuarios = new javax.swing.JButton();
+        jPanelBarra = new javax.swing.JPanel();
+        btnCerrar = new javax.swing.JLabel();
+        btnRes = new javax.swing.JLabel();
+        btnMin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ALMACÉN");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setFocusCycleRoot(false);
         setMaximumSize(null);
+        setUndecorated(true);
+        setResizable(false);
+        getContentPane().setLayout(null);
 
         jPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -73,18 +87,19 @@ setSize(ancho, alto);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1259, Short.MAX_VALUE)
+            .addGap(0, 1300, Short.MAX_VALUE)
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 794, Short.MAX_VALUE)
+            .addGap(0, 770, Short.MAX_VALUE)
         );
 
-        jPanelMenu.setBackground(new java.awt.Color(255, 255, 255));
-        jPanelMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jPanel);
+        jPanel.setBounds(120, 50, 1300, 770);
+
+        jPanelMenu.setBackground(new java.awt.Color(0, 51, 255));
+        jPanelMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanelMenu.setMaximumSize(null);
-        jPanelMenu.setMinimumSize(null);
-        jPanelMenu.setPreferredSize(null);
         jPanelMenu.setRequestFocusEnabled(false);
         jPanelMenu.setVerifyInputWhenFocusTarget(false);
         jPanelMenu.setLayout(new java.awt.GridLayout(6, 1));
@@ -120,26 +135,61 @@ setSize(ancho, alto);
         });
         jPanelMenu.add(jButtonUsuarios);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 9, Short.MAX_VALUE))
-                    .addComponent(jPanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        getContentPane().add(jPanelMenu);
+        jPanelMenu.setBounds(0, 50, 115, 785);
+
+        jPanelBarra.setBackground(new java.awt.Color(0, 51, 255));
+        jPanelBarra.setToolTipText("");
+        jPanelBarra.setAutoscrolls(true);
+        jPanelBarra.setFocusCycleRoot(true);
+        jPanelBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanelBarraMouseDragged(evt);
+            }
+        });
+        jPanelBarra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanelBarraMousePressed(evt);
+            }
+        });
+        jPanelBarra.setLayout(new java.awt.GridBagLayout());
+
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar.png"))); // NOI18N
+        btnCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCerrarMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 25;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 13, 0, 0);
+        jPanelBarra.add(btnCerrar, gridBagConstraints);
+
+        btnRes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/res.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 2;
+        gridBagConstraints.ipady = 25;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
+        jPanelBarra.add(btnRes, gridBagConstraints);
+
+        btnMin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/minimazar.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipady = 16;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 1080, 7, 0);
+        jPanelBarra.add(btnMin, gridBagConstraints);
+
+        getContentPane().add(jPanelBarra);
+        jPanelBarra.setBounds(0, 0, 1248, 50);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -158,6 +208,26 @@ setSize(ancho, alto);
         jButtonUsuarios.setBackground(Color.white);
         jPanelFactura.setVisible(true);
     }//GEN-LAST:event_jButtonFacturaActionPerformed
+
+    private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
+        // TODO add your handling code here:
+        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnCerrarMouseClicked
+
+    private void jPanelBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelBarraMousePressed
+        // TODO add your handling code here:
+                if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+            LayoutX = evt.getX();
+            LayoutY = evt.getY();
+        }
+    }//GEN-LAST:event_jPanelBarraMousePressed
+
+    private void jPanelBarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelBarraMouseDragged
+        // TODO add your handling code here:
+        this.setLocation(evt.getXOnScreen() - LayoutX, evt.getYOnScreen() - LayoutY);
+    }//GEN-LAST:event_jPanelBarraMouseDragged
 
     /**
      * @param args the command line arguments
@@ -195,9 +265,13 @@ setSize(ancho, alto);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnCerrar;
+    private javax.swing.JLabel btnMin;
+    private javax.swing.JLabel btnRes;
     private javax.swing.JButton jButtonFactura;
     private javax.swing.JButton jButtonUsuarios;
     private javax.swing.JPanel jPanel;
+    private javax.swing.JPanel jPanelBarra;
     private javax.swing.JPanel jPanelMenu;
     // End of variables declaration//GEN-END:variables
 }
