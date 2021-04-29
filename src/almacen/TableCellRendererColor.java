@@ -5,6 +5,7 @@
  */
 package almacen;
 
+import Modelos.Colores;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -41,10 +42,11 @@ private Component componente;
      public void pintarTabla(JTable Tabla ) {
 
         //Encabezado
+        Colores colores=new Colores();
         JTableHeader th;
         th = Tabla.getTableHeader();
-        Font fuente = new Font("Verdana", Font.ITALIC, 25);
-        th.setBackground(Color.decode("#3399FF"));
+        Font fuente = new Font("Verdana", Font.BOLD, 25);
+        th.setBackground(colores.getColorPrimarioLight());
         th.setForeground(Color.white);
         th.setFont(fuente);
 

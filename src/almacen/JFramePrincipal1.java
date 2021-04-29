@@ -36,8 +36,8 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     private void tamañoPantalla() {
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension d = tk.getScreenSize();
-        int ancho = (int) (d.getWidth() * 0.65);
-        int alto = (int) (d.getHeight() * 0.65);
+        int ancho = (int) (d.getWidth() * 0.5);
+        int alto = (int) (d.getHeight() * 0.5);
         setSize(ancho, alto);
         setLocationRelativeTo(null);
     }
@@ -53,10 +53,15 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         //jPanelUsuarios.setSize(jPanel2.getSize().width-jPanelMenu.getSize().width,jPanel2.getSize().height);
         //jPanelFactura.setSize(jPanel2.getSize().width-jPanelMenu.getSize().width,jPanel2.getSize().height);
         
-        
+        panelContenido.add(jPanelUsuarios);
         panelContenido.add(jPanelFactura);
+        panelContenido.add(jPanelUsuarios);
         
-        jPanelFactura.setVisible(false);
+        
+        
+        //jButtonUsuarios.setBackground(Color.decode("#3399FF"));
+        jPanelUsuarios.setVisible(false);
+        jPanelFactura.setVisible(true);
         
     }
 
@@ -109,6 +114,11 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         barraSuperior.setBackground(new java.awt.Color(51, 51, 255));
 
         btnMin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/minimazar.png"))); // NOI18N
+        btnMin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMinMouseClicked(evt);
+            }
+        });
 
         btnRes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/res.png"))); // NOI18N
         btnRes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,22 +219,19 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
-        
-       panelContenido.remove(jPanelFactura);
-        panelContenido.add(jPanelUsuarios);
         jPanelUsuarios.setVisible(true);
+        panelContenido.remove(jPanelFactura);
         jButtonFactura.setBackground(colores.getColorPrimarioOscuro());
         jButtonUsuarios.setBackground(Color.white);
+        jPanelFactura.setVisible(false);
     }//GEN-LAST:event_jButtonUsuariosActionPerformed
 
     private void jButtonFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturaActionPerformed
        
-       panelContenido.remove(jPanelUsuarios);
-        panelContenido.add(jPanelFactura);
-        
-        jPanelFactura.setVisible(true);
+        jPanelUsuarios.setVisible(false);
         jButtonUsuarios.setBackground(colores.getColorPrimarioOscuro());
         jButtonFactura.setBackground(Color.white);
+        jPanelFactura.setVisible(true);
     }//GEN-LAST:event_jButtonFacturaActionPerformed
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
@@ -250,9 +257,19 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     private void btnResMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResMouseClicked
         // TODO add your handling code here:
         if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-            this.setExtendedState(MAXIMIZED_BOTH);
+            
+              if(getExtendedState() == this.MAXIMIZED_BOTH){
+            setExtendedState(this.NORMAL);
+        }else{
+            setExtendedState(this.MAXIMIZED_BOTH);
+        }
         }
     }//GEN-LAST:event_btnResMouseClicked
+
+    private void btnMinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinMouseClicked
+        // TODO add your handling code here:
+        setExtendedState(this.ICONIFIED);
+    }//GEN-LAST:event_btnMinMouseClicked
 
     /**
      * @param args the command line arguments

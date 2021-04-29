@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
@@ -116,9 +117,11 @@ public class JPanelUsuarios extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        GridBagConstraints gridBagConstraints;
 
         jPanel1 = new JPanel();
         jButton1 = new JButton();
+        jPanel4 = new JPanel();
         jLabel1 = new JLabel();
         jPanel2 = new JPanel();
         jScrollPane1 = new JScrollPane();
@@ -137,6 +140,7 @@ public class JPanelUsuarios extends javax.swing.JPanel {
         jButton1.setBackground(new Color(255, 153, 51));
         jButton1.setIcon(new ImageIcon(getClass().getResource("/imagenes/1486485588-add-create-new-math-sign-cross-plus_81186.png"))); // NOI18N
         jButton1.setText("NUEVO");
+        jButton1.setBorder(new LineBorder(new Color(255, 255, 255), 5, true));
         jButton1.setFocusable(false);
         jButton1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -144,26 +148,31 @@ public class JPanelUsuarios extends javax.swing.JPanel {
             }
         });
 
+        jPanel4.setBackground(new Color(255, 255, 255));
+        jPanel4.setLayout(new GridBagLayout());
+
         jLabel1.setFont(new Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("USUARIOS");
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new Insets(39, 27, 32, 27);
+        jPanel4.add(jLabel1, gridBagConstraints);
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(32, 32, 32))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(496, 496, 496)
-                .addComponent(jLabel1)
-                .addContainerGap(610, Short.MAX_VALUE))
+                .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(jPanel4, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1235, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -267,6 +276,7 @@ public class JPanelUsuarios extends javax.swing.JPanel {
     JPanel jPanel1;
     JPanel jPanel2;
     JPanel jPanel3;
+    JPanel jPanel4;
     JScrollPane jScrollPane1;
     JTable jTableUsuarios;
     // End of variables declaration//GEN-END:variables

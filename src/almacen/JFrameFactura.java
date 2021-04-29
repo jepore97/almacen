@@ -1,9 +1,9 @@
 package almacen;
 
 
+import Modelos.Colores;
 import Modelos.Detalle;
 import Modelos.Factura;
-import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -18,13 +18,19 @@ public class JFrameFactura extends javax.swing.JFrame {
     long total = 0;
     Detalle detalle;
     DefaultTableModel modelo;
+    Colores colores;
     ArrayList<Detalle> detalles = new ArrayList<Detalle>();
 
     public JFrameFactura() {
+        colores=new Colores();
         initComponents();
         modelo = (DefaultTableModel) Tabla.getModel();
         tbc.pintarTabla(Tabla);
+        jPanel5.setBackground(colores.getColorPrimario());
         totalizar();
+                        
+
+
     }
     
     public void totalizar(){
