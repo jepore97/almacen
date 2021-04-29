@@ -50,18 +50,14 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         jButtonUsuarios.setBackground(colores.getColorPrimarioOscuro());
         
         panelContenido.setSize(getSize().width,getSize().height);
-        //jPanelUsuarios.setSize(jPanel2.getSize().width-jPanelMenu.getSize().width,jPanel2.getSize().height);
-        //jPanelFactura.setSize(jPanel2.getSize().width-jPanelMenu.getSize().width,jPanel2.getSize().height);
         
-        panelContenido.add(jPanelUsuarios);
+        
         panelContenido.add(jPanelFactura);
+        jPanelFactura.setVisible(false);
         panelContenido.add(jPanelUsuarios);
         
+        jPanelUsuarios.setVisible(true);
         
-        
-        //jButtonUsuarios.setBackground(Color.decode("#3399FF"));
-        jPanelUsuarios.setVisible(false);
-        jPanelFactura.setVisible(true);
         
     }
 
@@ -183,7 +179,7 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         jButtonFactura.setBorderPainted(false);
         jButtonFactura.setFocusable(false);
         jButtonFactura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonFactura.setPreferredSize(new java.awt.Dimension(150, 87));
+        jButtonFactura.setPreferredSize(null);
         jButtonFactura.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,6 +197,7 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         jButtonUsuarios.setBorderPainted(false);
         jButtonUsuarios.setFocusable(false);
         jButtonUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonUsuarios.setPreferredSize(null);
         jButtonUsuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,13 +218,15 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
         jPanelUsuarios.setVisible(true);
         panelContenido.remove(jPanelFactura);
+        panelContenido.add(jPanelFactura);
         jButtonFactura.setBackground(colores.getColorPrimarioOscuro());
         jButtonUsuarios.setBackground(Color.white);
         jPanelFactura.setVisible(false);
     }//GEN-LAST:event_jButtonUsuariosActionPerformed
 
     private void jButtonFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturaActionPerformed
-       
+       panelContenido.remove(jPanelFactura);
+        panelContenido.add(jPanelFactura);
         jPanelUsuarios.setVisible(false);
         jButtonUsuarios.setBackground(colores.getColorPrimarioOscuro());
         jButtonFactura.setBackground(Color.white);
