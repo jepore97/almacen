@@ -52,8 +52,6 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         panelContenido.setSize(getSize().width,getSize().height);
         
         
-        panelContenido.add(jPanelFactura);
-        jPanelFactura.setVisible(false);
         panelContenido.add(jPanelUsuarios);
         
         jPanelUsuarios.setVisible(true);
@@ -217,8 +215,8 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
 
     private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
         jPanelUsuarios.setVisible(true);
-        panelContenido.remove(jPanelFactura);
-        panelContenido.add(jPanelFactura);
+        panelContenido.remove(jPanelUsuarios);
+        panelContenido.add(jPanelUsuarios);
         jButtonFactura.setBackground(colores.getColorPrimarioOscuro());
         jButtonUsuarios.setBackground(Color.white);
         jPanelFactura.setVisible(false);
