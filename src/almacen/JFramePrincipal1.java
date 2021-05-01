@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import static javax.accessibility.AccessibleState.ICONIFIED;
 import javax.swing.JLabel;
+import javax.swing.border.EmptyBorder;
 
 
 public class JFramePrincipal1 extends javax.swing.JFrame {
@@ -50,10 +51,11 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         jButtonUsuarios.setBackground(colores.getColorPrimarioOscuro());
         
         panelContenido.setSize(getSize().width,getSize().height);
-        
+        panelContenido.setBorder(new EmptyBorder(10, 10, 10, 10));
         
         panelContenido.add(jPanelUsuarios);
         
+        jButtonUsuarios.setBackground(Color.white);
         jPanelUsuarios.setVisible(true);
         
         
