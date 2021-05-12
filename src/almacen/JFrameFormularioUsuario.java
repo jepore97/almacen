@@ -1,20 +1,34 @@
 package almacen;
 
 import Modelos.Colores;
+import Modelos.Usuario;
 import java.awt.GridBagConstraints;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import servicios.*;
 
 public class JFrameFormularioUsuario extends javax.swing.JFrame {
-    
+
     JPanelFirma jPanelFirma;
     Colores colores;
-    
+    String name, lastName, identification, email, grade, position;
+    ServicioUsuarios servicios = new ServicioUsuarios();
+    boolean resPost;
+    JPanelUsuarios jPanelU;
+
+    listarTablas listTabla;
+    ArrayList<Usuario> usuarios;
+
     public JFrameFormularioUsuario() {
-        colores=new Colores();
-        initComponents();        
+
+        colores = new Colores();
+        initComponents();
         init();
     }
-    
+
     private void init() {
+        jPanelU = new JPanelUsuarios();
+        listTabla = new listarTablas();
         jPanel1.setBackground(colores.getColorPrimarioLight());
         jButtonGuardar.setBackground(colores.getColorAcentuacion());
         jPanelFirma = new JPanelFirma();
@@ -22,9 +36,20 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
         c.gridx = 0;
         c.gridy = 7;
         c.gridwidth = 2;
-        jPanelFormulario.add(jPanelFirma,c);
+        jPanelFormulario.add(jPanelFirma, c);
         setLocationRelativeTo(null);
-    }   
+    }
+    
+       public void cargarDatos(int idUsuario, String nombres,String apellidos,String correos,String cedula,String cargo,String grado){
+        jTextFieldNombres.setText(nombres);
+         jTextFieldApellidos.setText(apellidos);
+        jTextFieldCedula.setText(cedula);
+        jTextFieldCorreo.setText(correos);
+        jTextFieldGrado.setText(grado);
+        jTextFieldCargo.setText(cargo);
+        this.setVisible(true);
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -350,6 +375,48 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        name = jTextFieldNombres.getText();
+        lastName = jTextFieldApellidos.getText();
+        identification = jTextFieldCedula.getText();
+        email = jTextFieldCorreo.getText();
+        grade = jTextFieldGrado.getText();
+        position = jTextFieldCargo.getText();
+
+        if (jTextFieldNombres.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campos vacios");
+        } else {
+            if (jTextFieldApellidos.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Campos vacios");
+            } else {
+                if (jTextFieldCedula.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Campos vacios");
+                } else {
+                    if (jTextFieldCorreo.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Campos vacios");
+                    } else {
+                        if (jTextFieldGrado.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Campos vacios");
+                        } else {
+                            if (jTextFieldCargo.getText().isEmpty()) {
+                                JOptionPane.showMessageDialog(null, "Campos vacios");
+                            } else {
+                                resPost = servicios.uploadToServer(name, lastName, identification, email, grade, position);
+                                if (resPost) {
+                                    usuarios = servicios.getUsuarios();
+
+                                    listTabla.tablaUsuario(usuarios, jPanelU.jTableUsuarios);
+                                    jPanelU.repaint();
+                                    jPanelU.validate();
+                                    jPanelU.doLayout();
+                                    dispose();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 

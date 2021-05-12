@@ -5,6 +5,7 @@
  */
 package almacen;
 
+import Modelos.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +15,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,6 +29,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
+import servicios.*;
 
 /**
  *
@@ -39,74 +42,21 @@ public class JPanelUsuarios extends javax.swing.JPanel {
      */
     
     TableCellRendererColor tbc =new TableCellRendererColor();
+    ServicioUsuarios servicios;
+    listarTablas listTabla;
+    ArrayList<Usuario> usuarios;
     public JPanelUsuarios() {
         initComponents();
         init();
     }
     
     private void init(){
+        servicios=new ServicioUsuarios();
+        listTabla=new listarTablas();
+        usuarios=servicios.getUsuarios();
         tbc.pintarTabla(jTableUsuarios);
-        DefaultTableModel modelo = (DefaultTableModel) jTableUsuarios.getModel(); 
-        Object [] fila = new Object[4]; 
+        listTabla.tablaUsuario(usuarios,jTableUsuarios);
         
-        fila[0] = "YURI MARCELA"; 
-        fila[1] = "CAICEDO MARÍN"; 
-        fila[2] = "yurimarin@gmail.com"; 
-        fila[3] = "SECRETARIA"; 
- 
-        modelo.addRow(fila); 
-        
-        fila[0] = "ANDRES FELIPE"; 
-        fila[1] = "CAICEDO MARÍN"; 
-        fila[2] = "andres.caicedo@gmail.com"; 
-        fila[3] = "COMERCIANTE"; 
-        
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        modelo.addRow(fila);
-        
-        
-        
-        jTableUsuarios.setModel(modelo); 
     }
 
     /**
@@ -127,13 +77,12 @@ public class JPanelUsuarios extends javax.swing.JPanel {
         jScrollPane1 = new JScrollPane();
         jTableUsuarios = new JTable();
         jPanel3 = new JPanel();
-        jButton2 = new JButton();
+        btnEditar = new JButton();
         jButton3 = new JButton();
-
-        setBackground(new Color(51, 0, 51));
-        setAutoscrolls(true);
-        setInheritsPopupMenu(true);
-        setLayout(new BorderLayout());
+        jPanel5 = new JPanel();
+        jPanel6 = new JPanel();
+        jLabel2 = new JLabel();
+        jButton4 = new JButton();
 
         jPanel1.setBackground(new Color(255, 255, 255));
         jPanel1.setAutoscrolls(true);
@@ -177,29 +126,34 @@ public class JPanelUsuarios extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        add(jPanel1, BorderLayout.PAGE_START);
+        setBackground(new Color(51, 0, 51));
+        setAutoscrolls(true);
+        setFont(new Font("Tahoma", 0, 18)); // NOI18N
+        setInheritsPopupMenu(true);
+        setLayout(new BorderLayout());
 
         jPanel2.setBackground(new Color(255, 255, 255));
         jPanel2.setLayout(new BorderLayout());
 
+        jTableUsuarios.setFont(new Font("Tahoma", 0, 18)); // NOI18N
         jTableUsuarios.setModel(new DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "NOMBRES", "APELLIDOS", "CORREO", "CARGO"
+                "CDGO", "NOMBRES", "APELLIDOS", "CORREO", "CARGO"
             }
         ) {
             Class[] types = new Class [] {
-                String.class, String.class, String.class, Object.class
+                Integer.class, String.class, String.class, String.class, String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -210,7 +164,6 @@ public class JPanelUsuarios extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTableUsuarios.setPreferredSize(null);
         jTableUsuarios.setRowHeight(28);
         jScrollPane1.setViewportView(jTableUsuarios);
 
@@ -220,9 +173,14 @@ public class JPanelUsuarios extends javax.swing.JPanel {
 
         jPanel3.setBackground(new Color(255, 255, 255));
 
-        jButton2.setBackground(new Color(255, 153, 51));
-        jButton2.setText("EDITAR");
-        jButton2.setPreferredSize(new Dimension(89, 40));
+        btnEditar.setBackground(new Color(255, 153, 51));
+        btnEditar.setText("EDITAR");
+        btnEditar.setPreferredSize(new Dimension(89, 40));
+        btnEditar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new Color(255, 153, 51));
         jButton3.setText("ELIMINAR");
@@ -238,7 +196,7 @@ public class JPanelUsuarios extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(746, Short.MAX_VALUE)
-                .addComponent(jButton2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -247,11 +205,55 @@ public class JPanelUsuarios extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
         );
 
         add(jPanel3, BorderLayout.PAGE_END);
+
+        jPanel5.setBackground(new Color(255, 255, 255));
+        jPanel5.setAutoscrolls(true);
+
+        jPanel6.setBackground(new Color(255, 255, 255));
+        jPanel6.setLayout(new GridBagLayout());
+
+        jLabel2.setFont(new Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setText("USUARIOS");
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new Insets(39, 27, 32, 27);
+        jPanel6.add(jLabel2, gridBagConstraints);
+
+        jButton4.setBackground(new Color(255, 153, 51));
+        jButton4.setIcon(new ImageIcon(getClass().getResource("/imagenes/1486485588-add-create-new-math-sign-cross-plus_81186.png"))); // NOI18N
+        jButton4.setText("NUEVA ");
+        jButton4.setAutoscrolls(true);
+        jButton4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        GroupLayout jPanel5Layout = new GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(815, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(24, 24, 24))
+        );
+        jPanel5Layout.setVerticalGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jPanel6, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addContainerGap())
+        );
+
+        add(jPanel5, BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -260,29 +262,40 @@ public class JPanelUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        System.out.println(jTableUsuarios.getSelectedRow());
         if(jTableUsuarios.getSelectedRow()<0){            
             JOptionPane.showMessageDialog(null, "Debes seleccionar una fila de la tabla");
         } else {
-            int confirmar = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el registro?");
-            if(JOptionPane.OK_OPTION == confirmar) {
-                DefaultTableModel model = (DefaultTableModel) jTableUsuarios.getModel();
-                model.removeRow(jTableUsuarios.getSelectedRow());
-            }
+            System.out.println("almacen.JPanelUsuarios.jButton3ActionPerformed()");
+            JFrameFormularioUsuario jFrameFormularioUsuario = new JFrameFormularioUsuario();
+            jFrameFormularioUsuario.cargarDatos(3, "ffuk", "yrtiurtr", "gj", "giygi", "gj", "ugiyj");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        JFrameFormularioUsuario jFrameFormularioUsuario = new JFrameFormularioUsuario();
+        jFrameFormularioUsuario.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btnEditarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    JButton btnEditar;
     JButton jButton1;
-    JButton jButton2;
     JButton jButton3;
+    JButton jButton4;
     JLabel jLabel1;
+    JLabel jLabel2;
     JPanel jPanel1;
     JPanel jPanel2;
     JPanel jPanel3;
     JPanel jPanel4;
+    JPanel jPanel5;
+    JPanel jPanel6;
     JScrollPane jScrollPane1;
-    JTable jTableUsuarios;
+    public static JTable jTableUsuarios;
     // End of variables declaration//GEN-END:variables
 }

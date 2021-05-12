@@ -1,6 +1,8 @@
 package almacen;
 
 import Modelos.Colores;
+import Modelos.Usuario;
+import servicios.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,13 +10,23 @@ import java.awt.Toolkit;
 import static javax.accessibility.AccessibleState.ICONIFIED;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
+import com.devazt.networking.HttpClient;
+import com.devazt.networking.OnHttpRequestComplete;
+import com.devazt.networking.Response;
+import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 public class JFramePrincipal1 extends javax.swing.JFrame {
 
     JPanelUsuarios jPanelUsuarios;
     jPanelFactura jPanelFactura;
+    JPanelStock jPanelStock;
     Colores colores;
+    ArrayList<Usuario> usuarios;
+    Usuario user;
+    ServicioUsuarios servicios;
     int LayoutX=0;
     
     int LayoutY=0;
@@ -26,34 +38,42 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     }
     
     private void init(){
+        servicios=new ServicioUsuarios();
                 tamañoPantalla();
-
+                jPanelStock=new JPanelStock();
         jPanelUsuarios = new JPanelUsuarios();
         jPanelFactura=new jPanelFactura();
         //jPanelUsuarios.setVisible(false);
         addComponentsToContentPane();
+        usuarios=servicios.getUsuarios();
+        //user=servicios.searchUsuario(1);
     }
+    
     
     private void tamañoPantalla() {
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension d = tk.getScreenSize();
-        int ancho = (int) (d.getWidth() * 0.5);
-        int alto = (int) (d.getHeight() * 0.5);
+        int ancho = (int) (d.getWidth() * 0.6);
+        int alto = (int) (d.getHeight() * 0.7);
         setSize(ancho, alto);
         setLocationRelativeTo(null);
     }
 
     
     private void addComponentsToContentPane() {
-        barraSuperior.setBackground(colores.getColorPrimario());
-        panelMenu.setBackground(colores.getColorPrimario());
+        barraSuperior.setBackground(colores.getColorPrimarioOscuro());
+        panelMenu.setBackground(colores.getColorPrimarioOscuro());
+        
         jButtonFactura.setBackground(colores.getColorPrimarioOscuro());
         jButtonUsuarios.setBackground(colores.getColorPrimarioOscuro());
-        
+        jButton1.setBackground(colores.getColorPrimarioOscuro());
         panelContenido.setSize(getSize().width,getSize().height);
         panelContenido.setBorder(new EmptyBorder(10, 10, 10, 10));
         
         panelContenido.add(jPanelUsuarios);
+        
+        jPanelStock.setVisible(false);
+        jPanelFactura.setVisible(false);
         
         jButtonUsuarios.setBackground(Color.white);
         jPanelUsuarios.setVisible(true);
@@ -81,6 +101,7 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         panelMenu = new javax.swing.JPanel();
         jButtonFactura = new javax.swing.JButton();
         jButtonUsuarios = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ALMACÉN");
@@ -170,8 +191,7 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         panelMenu.setVerifyInputWhenFocusTarget(false);
         panelMenu.setLayout(new java.awt.GridLayout(6, 1));
 
-        jButtonFactura.setBackground(new java.awt.Color(255, 0, 102));
-        jButtonFactura.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jButtonFactura.setBackground(new java.awt.Color(0, 0, 0));
         jButtonFactura.setForeground(new java.awt.Color(255, 255, 255));
         jButtonFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Factura1.png"))); // NOI18N
         jButtonFactura.setText("FACTURA");
@@ -179,7 +199,8 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         jButtonFactura.setBorderPainted(false);
         jButtonFactura.setFocusable(false);
         jButtonFactura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonFactura.setPreferredSize(null);
+        jButtonFactura.setMinimumSize(new java.awt.Dimension(120, 110));
+        jButtonFactura.setPreferredSize(new java.awt.Dimension(103, 110));
         jButtonFactura.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,8 +209,7 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         });
         panelMenu.add(jButtonFactura);
 
-        jButtonUsuarios.setBackground(new java.awt.Color(255, 0, 102));
-        jButtonUsuarios.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        jButtonUsuarios.setBackground(new java.awt.Color(0, 0, 0));
         jButtonUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         jButtonUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Usuarios1.png"))); // NOI18N
         jButtonUsuarios.setText("USUARIOS");
@@ -197,7 +217,7 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         jButtonUsuarios.setBorderPainted(false);
         jButtonUsuarios.setFocusable(false);
         jButtonUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonUsuarios.setPreferredSize(null);
+        jButtonUsuarios.setMinimumSize(new java.awt.Dimension(120, 93));
         jButtonUsuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,6 +225,23 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
             }
         });
         panelMenu.add(jButtonUsuarios);
+
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cashier2_117951.png"))); // NOI18N
+        jButton1.setText("Stock");
+        jButton1.setBorderPainted(false);
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setMinimumSize(new java.awt.Dimension(120, 81));
+        jButton1.setPreferredSize(new java.awt.Dimension(120, 81));
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panelMenu.add(jButton1);
 
         panelContenerdor.add(panelMenu, java.awt.BorderLayout.LINE_START);
 
@@ -216,19 +253,31 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
-        jPanelUsuarios.setVisible(true);
+        
         panelContenido.remove(jPanelUsuarios);
+        
+        panelContenido.remove(jPanelFactura);
+        panelContenido.remove(jPanelStock);
         panelContenido.add(jPanelUsuarios);
         jButtonFactura.setBackground(colores.getColorPrimarioOscuro());
+        jButton1.setBackground(colores.getColorPrimarioOscuro());
         jButtonUsuarios.setBackground(Color.white);
         jPanelFactura.setVisible(false);
+        jPanelStock.setVisible(false);
+        jPanelUsuarios.setVisible(true);
     }//GEN-LAST:event_jButtonUsuariosActionPerformed
 
     private void jButtonFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFacturaActionPerformed
        panelContenido.remove(jPanelFactura);
+       
+        panelContenido.remove(jPanelUsuarios);
+        panelContenido.remove(jPanelStock);
         panelContenido.add(jPanelFactura);
         jPanelUsuarios.setVisible(false);
+        
+        jPanelStock.setVisible(false);
         jButtonUsuarios.setBackground(colores.getColorPrimarioOscuro());
+        jButton1.setBackground(colores.getColorPrimarioOscuro());
         jButtonFactura.setBackground(Color.white);
         jPanelFactura.setVisible(true);
     }//GEN-LAST:event_jButtonFacturaActionPerformed
@@ -236,7 +285,7 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         // TODO add your handling code here:
         if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-            System.exit(0);
+            dispose();
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
 
@@ -269,6 +318,22 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         setExtendedState(this.ICONIFIED);
     }//GEN-LAST:event_btnMinMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        panelContenido.remove(jPanelFactura);
+        panelContenido.remove(jPanelUsuarios);
+        panelContenido.remove(jPanelStock);
+        panelContenido.add(jPanelStock);
+        jPanelUsuarios.setVisible(false);
+        
+        jPanelFactura.setVisible(false);
+        jButtonUsuarios.setBackground(colores.getColorPrimarioOscuro());
+        
+        jButtonFactura.setBackground(colores.getColorPrimarioOscuro());
+        jButton1.setBackground(Color.white);
+        jPanelStock.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,6 +375,7 @@ public class JFramePrincipal1 extends javax.swing.JFrame {
     private javax.swing.JLabel btnCerrar;
     private javax.swing.JLabel btnMin;
     private javax.swing.JLabel btnRes;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonFactura;
     private javax.swing.JButton jButtonUsuarios;
     private javax.swing.JPanel jPanel1;

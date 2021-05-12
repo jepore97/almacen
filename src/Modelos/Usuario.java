@@ -1,5 +1,10 @@
 package Modelos;
 
+import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Usuario {
     
     private int cdgoUsuario;
@@ -9,7 +14,6 @@ public class Usuario {
     private String cedula;
     private String cargo;
     private String grado;
-    private Factura factura[];
 
     public Usuario() {
     }
@@ -74,11 +78,45 @@ public class Usuario {
         this.grado = grado;
     }
 
-    public Factura[] getFactura() {
-        return factura;
-    }
+   
+    
+    public static Usuario fromJson(JSONObject jsonObject) {
+  	Usuario b = new Usuario();
+        // Deserialize json into object fields
+  	try {
+                b.cdgoUsuario=jsonObject.getInt("id");
+  		b.nombres = jsonObject.getString("name");
+        	b.apellidos = jsonObject.getString("lastname");
+        	b.correo = jsonObject.getString("email");
+        	b.cargo = jsonObject.getString("position");
+                b.cedula = jsonObject.getString("identification");
+                b.grado = jsonObject.getString("grade");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+  	// Return new object
+  	return b;
+  }
+   
+   public static ArrayList<Usuario> fromJson(JSONArray jsonArray) {
+      JSONObject usuariosJson;
+      ArrayList<Usuario> usuarios = new ArrayList<Usuario>(jsonArray.length());
+      // Process each result in json array, decode and convert to business object
+      for (int i=0; i < jsonArray.length(); i++) {
+          try {
+          	usuariosJson = jsonArray.getJSONObject(i);
+          } catch (Exception e) {
+              e.printStackTrace();
+              continue;
+          }
 
-    public void setFactura(Factura[] factura) {
-        this.factura = factura;
-    }
+          Usuario usuariosFromJson = Usuario.fromJson(usuariosJson);
+          if (usuariosFromJson != null) {
+          	usuarios.add(usuariosFromJson);
+          }
+      }
+
+      return usuarios;
+  }
 }

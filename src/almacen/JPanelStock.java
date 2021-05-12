@@ -9,15 +9,17 @@ package almacen;
  *
  * @author H-P
  */
-public class jPanelFactura extends javax.swing.JPanel {
+public class JPanelStock extends javax.swing.JPanel {
 
     /**
-     * Creates new form jPanelFactura
+     * Creates new form JPanelStock
      */
+   
     TableCellRendererColor tbc=new TableCellRendererColor();
-    public jPanelFactura() {
+     public JPanelStock() {
         initComponents();
-        tbc.pintarTabla(jTableFacturas);
+    
+        tbc.pintarTabla(jTableStock);
     }
 
     /**
@@ -31,23 +33,20 @@ public class jPanelFactura extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableFacturas = new javax.swing.JTable();
+        jTableStock = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-        setAutoscrolls(true);
-        setInheritsPopupMenu(true);
         setLayout(new java.awt.BorderLayout());
 
-        jTableFacturas.setModel(new javax.swing.table.DefaultTableModel(
+        jTableStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cdgo_factura", "Fecha", "Usuario", "Precio"
+                "NOMBRES", "APELLIDOS", "CORREO", "CARGO"
             }
         ) {
             Class[] types = new Class [] {
@@ -65,8 +64,9 @@ public class jPanelFactura extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTableFacturas.setRowHeight(30);
-        jScrollPane1.setViewportView(jTableFacturas);
+        jTableStock.setPreferredSize(null);
+        jTableStock.setRowHeight(28);
+        jScrollPane1.setViewportView(jTableStock);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -77,7 +77,7 @@ public class jPanelFactura extends javax.swing.JPanel {
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("FACTURAS");
+        jLabel1.setText("STOCK ALMACEN");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -99,7 +99,7 @@ public class jPanelFactura extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1241, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3)
@@ -119,8 +119,8 @@ public class jPanelFactura extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        JFrameFactura jFrameFactura = new JFrameFactura();
-        jFrameFactura.setVisible(true);
+        JFrameFormularioProducto jFrameFormularioProducto = new JFrameFormularioProducto();
+        jFrameFormularioProducto.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
@@ -130,6 +130,6 @@ public class jPanelFactura extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableFacturas;
+    private javax.swing.JTable jTableStock;
     // End of variables declaration//GEN-END:variables
 }

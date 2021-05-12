@@ -18,7 +18,7 @@ import javax.swing.table.JTableHeader;
  * @author H-P
  */
 public class TableCellRendererColor extends DefaultTableCellRenderer{
-private Component componente;
+
 
     @Override
     public Component getTableCellRendererComponent(JTable table,
@@ -28,14 +28,16 @@ private Component componente;
                                       int row,
                                       int column){
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); //To change body of generated methods, choose Tools | Templates.
-    
+        
         if(row%2==0){
         this.setBackground(Color.decode("#DBDADA"));
         }else{
             
         this.setBackground(Color.white);
+        }        
+        if(hasFocus){
+        this.setBackground(Color.green);
         }
-        
         return this;
     }
     
