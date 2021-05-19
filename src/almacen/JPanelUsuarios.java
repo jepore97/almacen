@@ -8,6 +8,7 @@ package almacen;
 import Modelos.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -15,7 +16,12 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.DebugGraphics;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,7 +30,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
@@ -45,16 +53,20 @@ public class JPanelUsuarios extends javax.swing.JPanel {
     ServicioUsuarios servicios;
     listarTablas listTabla;
     ArrayList<Usuario> usuarios;
+    Usuario usuario;
+    JFrameFormularioUsuario jFrameFormula;
+    int rowSelected=-1;
     public JPanelUsuarios() {
         initComponents();
         init();
     }
     
     private void init(){
+        
         servicios=new ServicioUsuarios();
         listTabla=new listarTablas();
         usuarios=servicios.getUsuarios();
-        tbc.pintarTabla(jTableUsuarios);
+       // tbc.pintarTabla(jTableUsuarios);
         listTabla.tablaUsuario(usuarios,jTableUsuarios);
         
     }
@@ -78,11 +90,15 @@ public class JPanelUsuarios extends javax.swing.JPanel {
         jTableUsuarios = new JTable();
         jPanel3 = new JPanel();
         btnEditar = new JButton();
-        jButton3 = new JButton();
+        btnEliminar = new JButton();
         jPanel5 = new JPanel();
         jPanel6 = new JPanel();
         jLabel2 = new JLabel();
+        jPanel7 = new JPanel();
         jButton4 = new JButton();
+        jPanel8 = new JPanel();
+        txtBuscar = new JTextField();
+        btnBuscar = new JButton();
 
         jPanel1.setBackground(new Color(255, 255, 255));
         jPanel1.setAutoscrolls(true);
@@ -164,7 +180,16 @@ public class JPanelUsuarios extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTableUsuarios.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        jTableUsuarios.setEditingColumn(0);
+        jTableUsuarios.setEditingRow(0);
         jTableUsuarios.setRowHeight(28);
+        jTableUsuarios.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jTableUsuarios.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                jTableUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableUsuarios);
 
         jPanel2.add(jScrollPane1, BorderLayout.CENTER);
@@ -176,18 +201,23 @@ public class JPanelUsuarios extends javax.swing.JPanel {
         btnEditar.setBackground(new Color(255, 153, 51));
         btnEditar.setText("EDITAR");
         btnEditar.setPreferredSize(new Dimension(89, 40));
+        btnEditar.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                btnEditarMouseClicked(evt);
+            }
+        });
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 btnEditarActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new Color(255, 153, 51));
-        jButton3.setText("ELIMINAR");
-        jButton3.setPreferredSize(new Dimension(105, 41));
-        jButton3.addActionListener(new ActionListener() {
+        btnEliminar.setBackground(new Color(255, 153, 51));
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.setPreferredSize(new Dimension(105, 41));
+        btnEliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
 
@@ -195,16 +225,16 @@ public class JPanelUsuarios extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(746, Short.MAX_VALUE)
+                .addContainerGap(586, Short.MAX_VALUE)
                 .addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
         );
@@ -213,18 +243,20 @@ public class JPanelUsuarios extends javax.swing.JPanel {
 
         jPanel5.setBackground(new Color(255, 255, 255));
         jPanel5.setAutoscrolls(true);
+        jPanel5.setLayout(new BorderLayout());
 
         jPanel6.setBackground(new Color(255, 255, 255));
+        jPanel6.setPreferredSize(new Dimension(129, 50));
         jPanel6.setLayout(new GridBagLayout());
 
         jLabel2.setFont(new Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setText("USUARIOS");
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new Insets(39, 27, 32, 27);
-        jPanel6.add(jLabel2, gridBagConstraints);
+        jPanel6.add(jLabel2, new GridBagConstraints());
+
+        jPanel5.add(jPanel6, BorderLayout.CENTER);
+
+        jPanel7.setBackground(new Color(255, 255, 255));
+        jPanel7.setPreferredSize(new Dimension(804, 100));
 
         jButton4.setBackground(new Color(255, 153, 51));
         jButton4.setIcon(new ImageIcon(getClass().getResource("/imagenes/1486485588-add-create-new-math-sign-cross-plus_81186.png"))); // NOI18N
@@ -236,22 +268,69 @@ public class JPanelUsuarios extends javax.swing.JPanel {
             }
         });
 
-        GroupLayout jPanel5Layout = new GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(815, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addGap(24, 24, 24))
+        jPanel8.setBackground(new Color(255, 255, 255));
+
+        txtBuscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+            public void keyReleased(KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        GroupLayout jPanel8Layout = new GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(jPanel8Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtBuscar, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscar, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jPanel6, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+        jPanel8Layout.setVerticalGroup(jPanel8Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscar, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar)))
+        );
+
+        GroupLayout jPanel7Layout = new GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jPanel8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 403, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addContainerGap())
         );
+        jPanel7Layout.setVerticalGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jButton4))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jPanel8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
+        jPanel5.add(jPanel7, BorderLayout.PAGE_END);
 
         add(jPanel5, BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
@@ -261,15 +340,11 @@ public class JPanelUsuarios extends javax.swing.JPanel {
         jFrameFormularioUsuario.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if(jTableUsuarios.getSelectedRow()<0){            
-            JOptionPane.showMessageDialog(null, "Debes seleccionar una fila de la tabla");
-        } else {
-            System.out.println("almacen.JPanelUsuarios.jButton3ActionPerformed()");
-            JFrameFormularioUsuario jFrameFormularioUsuario = new JFrameFormularioUsuario();
-            jFrameFormularioUsuario.cargarDatos(3, "ffuk", "yrtiurtr", "gj", "giygi", "gj", "ugiyj");
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnEliminarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+      
+            
+           
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void jButton4ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -281,11 +356,79 @@ public class JPanelUsuarios extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void txtBuscarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnBuscarActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+         String ele = txtBuscar.getText();
+
+    for (int i = 0; i < jTableUsuarios.getRowCount(); i++) {
+           if (jTableUsuarios.getValueAt(i, 1).equals(ele)) {                                           
+                  jTableUsuarios.changeSelection(i, 1, false, false);
+           }
+    }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtBuscarKeyPressed(KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        // TODO add your handling code here:
+           String ele = txtBuscar.getText();
+
+    for (int i = 0; i < jTableUsuarios.getRowCount(); i++) {
+           if (jTableUsuarios.getValueAt(i, 1).equals(ele)) {                                           
+                  jTableUsuarios.changeSelection(i, 1, false, false);
+                  break;
+           }
+    }
+    }//GEN-LAST:event_txtBuscarKeyPressed
+
+    private void txtBuscarKeyReleased(KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+               String ele = txtBuscar.getText();
+
+    for (int i = 0; i < jTableUsuarios.getRowCount(); i++) {
+           if (jTableUsuarios.getValueAt(i, 1).equals(ele)) {                                           
+                  jTableUsuarios.changeSelection(i, 1, false, false);
+                  break;
+           }
+    }
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+            
+        
+    private void btnEditarMouseClicked(MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+        // TODO add your handling code here:
+        
+        
+        
+         if(rowSelected>=0){
+             int row=rowSelected;
+             System.out.println(row);
+             
+                 int cdgoUsuario=(int) jTableUsuarios.getValueAt(row, 0);
+                 jFrameFormula=new JFrameFormularioUsuario();
+                 usuario=servicios.searchUsuario(cdgoUsuario);
+                 jFrameFormula.cargarDatos(usuario.getCdgoUsuario(), usuario.getNombres(),usuario.getApellidos(),usuario.getCorreo(),usuario.getCedula(),usuario.getCargo(),usuario.getGrado());
+                 
+                 evt.consume();
+        }else{
+             JOptionPane.showMessageDialog(null, "Por favor selecciona una fila");
+         }
+       
+    }//GEN-LAST:event_btnEditarMouseClicked
+
+    private void jTableUsuariosMouseClicked(MouseEvent evt) {//GEN-FIRST:event_jTableUsuariosMouseClicked
+        // TODO add your handling code here:
+        rowSelected=jTableUsuarios.rowAtPoint(evt.getPoint());
+    }//GEN-LAST:event_jTableUsuariosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    JButton btnBuscar;
     JButton btnEditar;
+    JButton btnEliminar;
     JButton jButton1;
-    JButton jButton3;
     JButton jButton4;
     JLabel jLabel1;
     JLabel jLabel2;
@@ -295,7 +438,10 @@ public class JPanelUsuarios extends javax.swing.JPanel {
     JPanel jPanel4;
     JPanel jPanel5;
     JPanel jPanel6;
+    JPanel jPanel7;
+    JPanel jPanel8;
     JScrollPane jScrollPane1;
     public static JTable jTableUsuarios;
+    JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

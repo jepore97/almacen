@@ -48,10 +48,7 @@ public class ServicioUsuarios {
                         try {
                             JSONArray jsonUsuarios = new JSONArray(status.getResult());
                             usuarios = Usuario.fromJson(jsonUsuarios);
-                            for (int i = 0;; i++) {
-                                System.out.println(usuarios.get(i).getCorreo());
-                                //System.out.println(jsonUsuarios.getJSONObject(i).get("name").toString());
-                            }
+                            
 
                         } catch (Exception e) {
                         }
@@ -80,7 +77,6 @@ public class ServicioUsuarios {
                             JSONObject jsonUsuarios = new JSONObject(status.getResult());
                             user = Usuario.fromJson(jsonUsuarios);
 
-                            System.out.println(user.getApellidos());
 
                         } catch (Exception e) {
                         }
@@ -90,7 +86,7 @@ public class ServicioUsuarios {
                 }
 
             });
-            client.excecute("https://jsonplaceholder.typicode.com/users/" + id);
+            client.excecute("http://192.168.216.2:5000/api/user/" + id);
         } catch (Exception e) {
         }
 
@@ -126,6 +122,48 @@ public class ServicioUsuarios {
                 if (intResponse == 200) {
                     res = true;
                     JOptionPane.showMessageDialog(null, "Usuario Registrado");
+
+                } else {
+                    res = false;
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error");
+                }
+            }
+        } catch (Exception e) {
+        }
+
+        return res;
+
+    }
+    
+    public boolean updateUsuario(String id ,String name, String lastName, String identification, String email, String grade, String position) {
+        boolean res = false;
+        try {
+            URL url = new URL("http://192.168.216.2:5000/api/user/"+id);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            if (conn != null) {
+                //Whatever you wants to post...                 
+                String strPostData = "name=" + name + "&lastName=" + lastName + "&identification=" + identification + "&email=" + email + "&grade=" + grade + "&position=" + position;
+                // String strPostData = "{pqrs_asunto:\"vnccvc\",\"pqrs_desc\":\"fgfddfg\",\"us_cdgo\":1}";
+
+                conn.setRequestMethod("PUT");
+                conn.setRequestProperty("Accept-Language", "en-GB,en;q=0.5");
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                conn.setRequestProperty("Content-length", Integer.toString(strPostData.length()));
+                conn.setRequestProperty("Content-Language", "en-GB");
+                conn.setRequestProperty("charset", "utf-8");
+                conn.setUseCaches(false);
+                conn.setDoOutput(true);
+                DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+                dos.writeBytes(strPostData);
+                dos.flush();
+                dos.close();
+                int intResponse = conn.getResponseCode();
+                System.out.println("\nSending 'Put' to " + url.toString()
+                        + ", data: " + strPostData + ", rc: " + intResponse);
+                if (intResponse == 200) {
+                    res = true;
+                    JOptionPane.showMessageDialog(null, "Usuario Actualizado");
 
                 } else {
                     res = false;

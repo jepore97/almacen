@@ -11,7 +11,7 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
 
     JPanelFirma jPanelFirma;
     Colores colores;
-    String name, lastName, identification, email, grade, position;
+    String name, lastName, identification, email, grade, position,id;
     ServicioUsuarios servicios = new ServicioUsuarios();
     boolean resPost;
     JPanelUsuarios jPanelU;
@@ -31,6 +31,7 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
         listTabla = new listarTablas();
         jPanel1.setBackground(colores.getColorPrimarioLight());
         jButtonGuardar.setBackground(colores.getColorAcentuacion());
+        jButtonEditar.setBackground(colores.getColorAcentuacion());
         jPanelFirma = new JPanelFirma();
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
@@ -41,12 +42,14 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
     }
     
        public void cargarDatos(int idUsuario, String nombres,String apellidos,String correos,String cedula,String cargo,String grado){
-        jTextFieldNombres.setText(nombres);
+        id=Integer.toString(idUsuario);
+           jTextFieldNombres.setText(nombres);
          jTextFieldApellidos.setText(apellidos);
         jTextFieldCedula.setText(cedula);
         jTextFieldCorreo.setText(correos);
         jTextFieldGrado.setText(grado);
         jTextFieldCargo.setText(cargo);
+        jButtonGuardar.setVisible(false);
         this.setVisible(true);
     }
     
@@ -76,11 +79,12 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
         jLabelHuella3 = new javax.swing.JLabel();
         jButtonGuardar = new javax.swing.JButton();
         jLabelRequerido = new javax.swing.JLabel();
+        jButtonEditar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
 
         setResizable(false);
-        setType(java.awt.Window.Type.UTILITY);
+        setType(java.awt.Window.Type.POPUP);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -317,6 +321,22 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         jPanelFormulario.add(jLabelRequerido, gridBagConstraints);
 
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setMinimumSize(new java.awt.Dimension(100, 29));
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 15;
+        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.ipadx = 241;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(46, 0, 39, 0);
+        jPanelFormulario.add(jButtonEditar, gridBagConstraints);
+
         jPanel2.setOpaque(false);
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -356,7 +376,7 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
-                .addComponent(jPanelFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+                .addComponent(jPanelFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -420,6 +440,28 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Editar");
+        name = jTextFieldNombres.getText();
+        lastName = jTextFieldApellidos.getText();
+        identification = jTextFieldCedula.getText();
+        email = jTextFieldCorreo.getText();
+        grade = jTextFieldGrado.getText();
+        position = jTextFieldCargo.getText();
+        
+        resPost = servicios.updateUsuario(id,name, lastName, identification, email, grade, position);
+                                if (resPost) {
+                                    usuarios = servicios.getUsuarios();
+
+                                    listTabla.tablaUsuario(usuarios, jPanelU.jTableUsuarios);
+                                    jPanelU.repaint();
+                                    jPanelU.validate();
+                                    jPanelU.doLayout();
+                                    dispose();
+                                }
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -456,6 +498,7 @@ public class JFrameFormularioUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JLabel jLabelApellidos;
     private javax.swing.JLabel jLabelCargo;
